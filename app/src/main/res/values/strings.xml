@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MeCeipt</string>
+
+    <string name="welcome_text">Welcome to MeCeipt!</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
 </resources>
