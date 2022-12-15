@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "54980641916",
+    "project_id": "meceipt-ea833",
+    "storage_bucket": "meceipt-ea833.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54980641916:android:173f974ad2121c37deb5f9",
+        "android_client_info": {
+          "package_name": "com.example.meceipt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54980641916-kdpp3f2hg4ocqsuli35d3b9c39ifff58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAH2qWwIX7DuO26Egh0DpaNwVGIQYU1Xg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54980641916-kdpp3f2hg4ocqsuli35d3b9c39ifff58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
