@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.meceipt.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class SignUpActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +32,17 @@ class SignUpActivity : BaseActivity() {
         val password: String = findViewById<EditText>(R.id.tfPassword).text.toString().trim()
 
         if(validateForm(fName, lName,  email, password)) {
-            Toast.makeText(
-                this@SignUpActivity,
-                "Now we can register a new user.",
-                Toast.LENGTH_SHORT
-            ).show()
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    val firebaseUser : FirebaseUser = task.result!!.user!!
+                    val registeredEmail = firebaseUser.email!!
+                    Toast.makeText(this, "$fName has registered with the email: $registeredEmail", Toast.LENGTH_LONG).show()
+                    FirebaseAuth.getInstance().signOut()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
