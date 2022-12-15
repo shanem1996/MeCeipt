@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".SignUpActivity">
+    tools:context=".activities.SignUpActivity">
 
     <Space
         android:layout_width="match_parent"
@@ -70,12 +70,13 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:hint="Password" />
-    
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="20dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSignUpPage"
         android:layout_width="123dp"
         android:layout_height="47dp"
         android:background="@drawable/signup_signin_page_button"

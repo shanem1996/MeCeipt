@@ -9,21 +9,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeCeipt">
         <activity
-            android:name=".SignInActivity"
+            android:name=".BaseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activities.SignInActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".activities.SignUpActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activities.WelcomeActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true" />
     </application>
 
