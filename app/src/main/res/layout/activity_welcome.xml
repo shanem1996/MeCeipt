@@ -23,11 +23,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSignIn"
-        android:layout_width="283dp"
-        android:layout_height="61dp"
+        android:layout_width="239dp"
+        android:layout_height="48dp"
         android:background="@drawable/shape_welcome_button"
         android:text="@string/sign_in"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white" />
 
 
     <Space
@@ -36,10 +36,10 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSignUp"
-        android:layout_width="283dp"
-        android:layout_height="61dp"
+        android:layout_width="239dp"
+        android:layout_height="48dp"
         android:background="@drawable/shape_welcome_button"
         android:text="@string/sign_up"
-        android:textColor="@color/black" />
+        android:textColor="@color/white" />
 
 </LinearLayout>
