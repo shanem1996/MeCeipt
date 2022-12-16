@@ -9,14 +9,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeCeipt">
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.BusinessSignUpActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".BaseActivity"
+            android:name=".activities.HomeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activities.BaseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

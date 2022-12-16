@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    tools:context=".activities.BusinessSignUpActivity"
     android:orientation="vertical"
-    tools:context=".activities.SignUpActivity">
+    android:gravity="center_horizontal">
 
     <Space
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="29dp"
-        android:text="with your email address"
+        android:text="with your company name"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp" />
@@ -38,32 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"/>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tfFName"
-            android:layout_width="175dp"
-            android:layout_height="50dp"
-            android:hint="First Name" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tfLName"
-            android:layout_width="175dp"
-            android:layout_height="50dp"
-            android:hint="Last Name" />
-
-    </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tfEmail"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/tfCompany"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:hint="Email address" />
+        app:queryHint="Company name"
+        app:iconifiedByDefault="false"/>
+
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tfPassword"
@@ -84,26 +65,8 @@
         android:textColor="@color/white"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="60dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="29dp"
-        android:text="Want to sign up as a business?"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSignUpBusiness"
-        android:layout_width="142dp"
-        android:layout_height="47dp"
-        android:background="@drawable/signup_signin_page_button"
-        android:text="Business Sign Up"
-        android:textColor="@color/white"
-        tools:ignore="TouchTargetSizeCheck" />
 
 
 </LinearLayout>

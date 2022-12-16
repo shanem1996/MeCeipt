@@ -21,6 +21,11 @@ class SignUpActivity : BaseActivity() {
             registerUser()
         }
 
+        val btnSignUpBusiness = findViewById<Button>(R.id.btnSignUpBusiness)
+        btnSignUpBusiness.setOnClickListener {
+            startActivity(Intent(this, BusinessSignUpActivity::class.java))
+        }
+
     }
 
 
