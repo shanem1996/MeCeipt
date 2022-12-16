@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.meceipt.R
+import com.example.meceipt.firebase.FirestoreClass
+import com.example.meceipt.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -28,6 +30,17 @@ class SignUpActivity : BaseActivity() {
 
     }
 
+    fun userRegisteredSuccess() {
+        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show()
+        FirebaseAuth.getInstance().signOut()
+        finish()
+        val btnSignUpPage = findViewById<Button>(R.id.btnSignUpPage)
+        btnSignUpPage.setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+
+    }
+
 
 
 //    Getting the text field inputs and assigning them to variables
@@ -42,17 +55,10 @@ class SignUpActivity : BaseActivity() {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     val firebaseUser : FirebaseUser = task.result!!.user!!
+                    val user = User(firebaseUser.uid, fName, lName, email)
+                    FirestoreClass().registerUser(this, user)
 
 
-                    Toast.makeText(this, "Registration complete! Welcome to MeCeipt!", Toast.LENGTH_LONG).show()
-
-
-                    FirebaseAuth.getInstance().signOut()
-                    finish()
-                    val btnSignUpPage = findViewById<Button>(R.id.btnSignUpPage)
-                    btnSignUpPage.setOnClickListener {
-                        startActivity(Intent(this, HomeActivity::class.java))
-                    }
                 } else {
                     Toast.makeText(this, "Registration failed. Please try again", Toast.LENGTH_LONG).show()
                 }
