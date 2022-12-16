@@ -1,5 +1,6 @@
 package com.example.meceipt.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -24,19 +25,22 @@ class SignUpActivity : BaseActivity() {
 
 
 
-
+//    Getting the text field inputs and assigning them to variables
     private fun registerUser(){
         val fName: String = findViewById<EditText>(R.id.tfFName).text.toString().trim() { it <= ' '}
         val lName: String = findViewById<EditText>(R.id.tfLName).text.toString().trim() { it <= ' '}
         val email: String = findViewById<EditText>(R.id.tfEmail).text.toString().trim() { it <= ' '}
         val password: String = findViewById<EditText>(R.id.tfPassword).text.toString().trim()
 
+//        Checking for validation of sign up and registering user
         if(validateForm(fName, lName,  email, password)) {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     val firebaseUser : FirebaseUser = task.result!!.user!!
                     val registeredEmail = firebaseUser.email!!
                     Toast.makeText(this, "$fName has registered with the email: $registeredEmail", Toast.LENGTH_LONG).show()
+
+
                     FirebaseAuth.getInstance().signOut()
                     finish()
                 } else {
@@ -46,6 +50,7 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
+//    Validations for sign up page
     private fun validateForm(fName: String, lName: String, email: String, password: String) : Boolean {
         return when {
             TextUtils.isEmpty(fName)->{
