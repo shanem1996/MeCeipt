@@ -42,14 +42,19 @@ class SignUpActivity : BaseActivity() {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     val firebaseUser : FirebaseUser = task.result!!.user!!
-                    val registeredEmail = firebaseUser.email!!
-                    Toast.makeText(this, "$fName has registered with the email: $registeredEmail", Toast.LENGTH_LONG).show()
+
+
+                    Toast.makeText(this, "Registration complete! Welcome to MeCeipt!", Toast.LENGTH_LONG).show()
 
 
                     FirebaseAuth.getInstance().signOut()
                     finish()
+                    val btnSignUpPage = findViewById<Button>(R.id.btnSignUpPage)
+                    btnSignUpPage.setOnClickListener {
+                        startActivity(Intent(this, HomeActivity::class.java))
+                    }
                 } else {
-                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Registration failed. Please try again", Toast.LENGTH_LONG).show()
                 }
             }
         }

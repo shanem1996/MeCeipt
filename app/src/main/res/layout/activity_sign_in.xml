@@ -39,22 +39,24 @@
         android:layout_height="30dp"/>
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tfEmail"
+        android:id="@+id/tfEmailSignIn"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:hint="Email address" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tfPassword"
+        android:id="@+id/tfPasswordSignIn"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:hint="Password" />
+        android:hint="Password"
+        android:inputType="textPassword"/>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="20dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSignIn"
         android:layout_width="123dp"
         android:layout_height="47dp"
         android:background="@drawable/signup_signin_page_button"

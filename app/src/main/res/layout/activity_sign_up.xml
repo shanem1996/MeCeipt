@@ -69,7 +69,8 @@
         android:id="@+id/tfPassword"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:hint="Password" />
+        android:hint="Password"
+        android:inputType="textPassword"/>
 
     <Space
         android:layout_width="match_parent"
