@@ -42,7 +42,7 @@ class SignInActivity : BaseActivity() {
                         Log.d("Sign in", "signInWithEmail:success")
                         val user = auth.currentUser
                         Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, HomeActivity::class.java))
+                        startActivity(Intent(this, MainActivity::class.java))
 
 
                     } else {

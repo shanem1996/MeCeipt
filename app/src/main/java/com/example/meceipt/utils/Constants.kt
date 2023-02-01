@@ -1,6 +1,6 @@
 package com.example.meceipt.utils
 
-object Contstants {
+object Constants {
 
     const val USERS: String = "Users"
 }
