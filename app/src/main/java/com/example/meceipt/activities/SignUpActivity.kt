@@ -34,10 +34,6 @@ class SignUpActivity : BaseActivity() {
         Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show()
         FirebaseAuth.getInstance().signOut()
         finish()
-        val btnSignUpPage = findViewById<Button>(R.id.btnSignUpPage)
-        btnSignUpPage.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
-        }
 
     }
 
@@ -57,6 +53,10 @@ class SignUpActivity : BaseActivity() {
                     val firebaseUser : FirebaseUser = task.result!!.user!!
                     val user = User(firebaseUser.uid, fName, lName, email)
                     FirestoreClass().registerUser(this, user)
+                    val btnSignUpPage = findViewById<Button>(R.id.btnSignUpPage)
+                    btnSignUpPage.setOnClickListener {
+                        startActivity(Intent(this, HomeActivity::class.java))
+                    }
 
 
                 } else {
