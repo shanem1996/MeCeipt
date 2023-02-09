@@ -3,15 +3,17 @@
 
 
     <item
-        android:title="Receipt"
-        android:id="@+id/receipt"
-        android:icon="@drawable/receipt_selector"/>
-    <item
         android:title="Home"
         android:id="@+id/home"
         android:icon="@drawable/home_selector" />
+
     <item
-        android:title="Env"
+        android:title="Receipt"
+        android:id="@+id/receipt"
+        android:icon="@drawable/receipt_selector"/>
+
+    <item
+        android:title="Environment"
         android:id="@+id/env"
         android:icon="@drawable/env_selector" />
 </menu>

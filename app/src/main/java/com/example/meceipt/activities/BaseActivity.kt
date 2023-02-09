@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.meceipt.R
+import com.example.meceipt.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
 open class BaseActivity : AppCompatActivity() {
+
+
 
     private var doubleBackToExitPressedOnce = false
 
@@ -17,7 +21,13 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_base)
+
+
+
+
+
     }
 
     fun getCurrentUserID(): String{
@@ -32,6 +42,7 @@ open class BaseActivity : AppCompatActivity() {
 
         snackBar.show()
     }
+
 
 //    fun showProgressDialog(text: String){
 //        mProgressDialog = Dialog(this)
