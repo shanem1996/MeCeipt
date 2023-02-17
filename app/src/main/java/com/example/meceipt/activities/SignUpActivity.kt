@@ -64,8 +64,8 @@ class SignUpActivity : AppCompatActivity() {
 
                             docRef.set(user).addOnSuccessListener {
 
-                                    val intent = Intent(this, HomeActivity::class.java)
-                                    startActivity(intent)
+                                    val home = Intent(this, HomeActivity::class.java)
+                                    startActivity(home)
                             }
 
 
