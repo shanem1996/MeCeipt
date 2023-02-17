@@ -72,6 +72,13 @@
         android:hint="Password"
         android:inputType="textPassword"/>
 
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tfConfPassword"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:hint="Password"
+        android:inputType="textPassword"/>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="20dp"/>

@@ -10,21 +10,5 @@ import com.google.firebase.firestore.SetOptions
 
 class FirestoreClass {
 
-    private val mFireStore = FirebaseFirestore.getInstance()
 
-    fun registerUser(activity: SignUpActivity, userInfo : User) {
-        mFireStore.collection(Constants.USERS)
-            .document(getCurrentUserId())
-            .set(userInfo, SetOptions.merge())
-            .addOnSuccessListener {
-                activity.userRegisteredSuccess()
-            }.addOnFailureListener{
-                e ->
-                Log.e(activity.javaClass.simpleName, "Error")
-            }
-    }
-
-    fun getCurrentUserId(): String {
-        return FirebaseAuth.getInstance().currentUser!!.uid
-    }
 }

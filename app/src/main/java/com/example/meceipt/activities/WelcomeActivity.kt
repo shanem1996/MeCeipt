@@ -6,22 +6,22 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.meceipt.R
+import com.example.meceipt.databinding.ActivityWelcomeBinding
 
-class WelcomeActivity : BaseActivity() {
+class WelcomeActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityWelcomeBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
-        setContentView(R.layout.activity_welcome)
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        /* Setting the sign-up button in xml to a variable and adding a listener to it */
-        val btnSignUp = findViewById<Button>(R.id.btnSignUp)
-        btnSignUp.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
-        }
-
-        val btnSignIn = findViewById<Button>(R.id.btnSignIn)
-        btnSignIn.setOnClickListener {
-            startActivity(Intent(this, SignInActivity::class.java))
+        binding.btnSignUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
         }
 
     }

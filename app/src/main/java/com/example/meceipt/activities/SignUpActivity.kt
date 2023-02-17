@@ -3,91 +3,96 @@ package com.example.meceipt.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.service.controls.ControlsProviderService.TAG
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.meceipt.R
+import com.example.meceipt.databinding.ActivitySignUpBinding
 import com.example.meceipt.firebase.FirestoreClass
 import com.example.meceipt.models.User
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
-class SignUpActivity : BaseActivity() {
+class SignUpActivity : AppCompatActivity() {
+
+    val firestore = FirebaseFirestore.getInstance()
+    private lateinit var binding: ActivitySignUpBinding
+    private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
 
-        val btnSignUpPage = findViewById<Button>(R.id.btnSignUpPage)
-        btnSignUpPage.setOnClickListener {
-            registerUser()
-        }
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        val view = binding.root
 
-        val btnSignUpBusiness = findViewById<Button>(R.id.btnSignUpBusiness)
-        btnSignUpBusiness.setOnClickListener {
-            startActivity(Intent(this, BusinessSignUpActivity::class.java))
-        }
+        setContentView(view)
 
-    }
+        firebaseAuth = FirebaseAuth.getInstance()
 
-    fun userRegisteredSuccess() {
-        Toast.makeText(this, "Registration Successful!", Toast.LENGTH_LONG).show()
-        FirebaseAuth.getInstance().signOut()
-        finish()
+        //Listening for the Sign Up button to be pressed
+        binding.btnSignUpPage.setOnClickListener {
+            val fName = binding.tfFName.text.toString().trim()
+            val lName = binding.tfLName.text.toString().trim()
+            val email = binding.tfEmail.text.toString().trim()
+            val password = binding.tfPassword.text.toString().trim()
+            val confPassword = binding.tfConfPassword.text.toString().trim()
 
-    }
-
-
-
-//    Getting the text field inputs and assigning them to variables
-    private fun registerUser(){
-        val fName: String = findViewById<EditText>(R.id.tfFName).text.toString().trim() { it <= ' '}
-        val lName: String = findViewById<EditText>(R.id.tfLName).text.toString().trim() { it <= ' '}
-        val email: String = findViewById<EditText>(R.id.tfEmail).text.toString().trim() { it <= ' '}
-        val password: String = findViewById<EditText>(R.id.tfPassword).text.toString().trim()
-
-//        Checking for validation of sign up and registering user
-        if(validateForm(fName, lName,  email, password)) {
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    val firebaseUser : FirebaseUser = task.result!!.user!!
-                    val user = User(firebaseUser.uid, fName, lName, email)
-                    FirestoreClass().registerUser(this, user)
-                    val btnSignUpPage = findViewById<Button>(R.id.btnSignUpPage)
-                    btnSignUpPage.setOnClickListener {
-                        startActivity(Intent(this, HomeActivity::class.java))
-                    }
-
+            if (fName.isNotEmpty() && lName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confPassword.isNotEmpty()){
+                if (password != confPassword) {
+                    Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_LONG).show()
 
                 } else {
-                    Toast.makeText(this, "Registration failed. Please try again", Toast.LENGTH_LONG).show()
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
+                        if (it.isSuccessful){
+
+                            val currentUser = FirebaseAuth.getInstance().currentUser
+                            val userId = currentUser!!.uid
+                            val docRef = firestore.collection("User").document(userId)
+
+                            val user = hashMapOf(
+                                "fName" to fName,
+                                "lName" to lName,
+                                "email" to email
+                            )
+
+                            docRef.set(user).addOnSuccessListener {
+
+                                    val intent = Intent(this, HomeActivity::class.java)
+                                    startActivity(intent)
+                            }
+
+
+
+//                                .addOnSuccessListener {
+//                                    val intent = Intent(this, HomeActivity::class.java)
+//                                    startActivity(intent)
+//                                }
+//                                .addOnFailureListener { e ->
+//                                    val intent = Intent(this, SignUpActivity::class.java)
+//                                    startActivity(intent)
+//                                }
+
+
+
+
+                        } else {
+                            Snackbar.make(view, it.exception.toString(), Snackbar.LENGTH_LONG).show()
+                        }
+                    }
                 }
+            } else {
+                Snackbar.make(view, "All fields must be filled", Snackbar.LENGTH_LONG).show()
+
             }
         }
-    }
 
-//    Validations for sign up page
-    private fun validateForm(fName: String, lName: String, email: String, password: String) : Boolean {
-        return when {
-            TextUtils.isEmpty(fName)->{
-                showErrorSnackBar("Please enter a first name")
-                false
-            }
-            TextUtils.isEmpty(lName)->{
-                showErrorSnackBar("Please enter a last name")
-                false
-            }
-            TextUtils.isEmpty(email)->{
-                showErrorSnackBar("Please enter an email address")
-                false
-            }
-            TextUtils.isEmpty(password)->{
-                showErrorSnackBar("Please enter a password")
-                false
-            } else -> {
-                true
-            }
 
-        }
     }
 }
