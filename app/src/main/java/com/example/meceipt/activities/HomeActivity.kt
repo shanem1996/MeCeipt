@@ -30,8 +30,8 @@ class HomeActivity : AppCompatActivity() {
         val docRef = firestore.collection("User").document(userId)
         val nameTf = binding.name
         val qrText = userId.toString()
-        val qrCodeWidth = 512
-        val qrCodeHeight = 512
+        val qrCodeWidth = 812
+        val qrCodeHeight = 812
         val qrCodeWriter = QRCodeWriter()
         val bitMatrix = qrCodeWriter.encode(qrText, BarcodeFormat.QR_CODE, qrCodeWidth, qrCodeHeight)
         val qrCodeBitmap = Bitmap.createBitmap(qrCodeWidth, qrCodeHeight, Bitmap.Config.RGB_565)
@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
         docRef.get()
             .addOnSuccessListener { documentSnapshot ->
                 val name = documentSnapshot.getString("fName")
-                nameTf.text = name
+                nameTf.text = "Welcome back " + name + "!"
             }
             .addOnFailureListener { exception ->
                 Log.e("myError", "No name detected")

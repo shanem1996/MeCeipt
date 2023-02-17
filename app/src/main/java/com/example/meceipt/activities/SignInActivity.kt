@@ -39,7 +39,7 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(home)
                         Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
                     } else {
-                        Snackbar.make(view, "Login Failed", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(view, "Login Failed - Invalid email or password", Snackbar.LENGTH_LONG).show()
 
                     }
 
