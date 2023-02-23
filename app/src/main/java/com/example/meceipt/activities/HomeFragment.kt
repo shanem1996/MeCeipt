@@ -63,7 +63,7 @@ class HomeFragment : Fragment() {
         docRef.get()
             .addOnSuccessListener { documentSnapshot ->
                 val name = documentSnapshot.getString("fName")
-                nameTf.text = "Welcome back " + name + "!"
+                nameTf.text = "Welcome back $name!"
             }
             .addOnFailureListener { exception ->
                 Log.e("myError", "No name detected")

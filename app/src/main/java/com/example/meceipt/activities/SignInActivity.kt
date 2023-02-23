@@ -13,11 +13,16 @@ import com.example.meceipt.databinding.ActivitySignInBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    val firestore = FirebaseFirestore.getInstance()
+    val currentUser = FirebaseAuth.getInstance().currentUser
+    val userId = currentUser!!.uid
+    val docRef = firestore.collection("User").document(userId)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +42,11 @@ class SignInActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         val home = Intent(this, HomeActivity::class.java)
                         startActivity(home)
-                        Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
+                        docRef.get().addOnSuccessListener { documentSnapshot ->
+                            val name = documentSnapshot.getString("fName")
+                            Toast.makeText(this, "Welcome back, $name!", Toast.LENGTH_SHORT).show()
+                        }
+
                     } else {
                         Snackbar.make(view, "Login Failed - Invalid email or password", Snackbar.LENGTH_LONG).show()
 
