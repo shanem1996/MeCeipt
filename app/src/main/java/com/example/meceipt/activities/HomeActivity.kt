@@ -5,8 +5,12 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import com.example.meceipt.R
 import com.example.meceipt.databinding.ActivityHomeBinding
+import com.example.meceipt.databinding.ActivityMainBinding
 import com.example.meceipt.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,39 +28,28 @@ class HomeActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val firestore = FirebaseFirestore.getInstance()
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val userId = currentUser!!.uid
-        val docRef = firestore.collection("User").document(userId)
-        val nameTf = binding.name
-        val qrText = userId.toString()
-        val qrCodeWidth = 812
-        val qrCodeHeight = 812
-        val qrCodeWriter = QRCodeWriter()
-        val bitMatrix = qrCodeWriter.encode(qrText, BarcodeFormat.QR_CODE, qrCodeWidth, qrCodeHeight)
-        val qrCodeBitmap = Bitmap.createBitmap(qrCodeWidth, qrCodeHeight, Bitmap.Config.RGB_565)
-        val qrCode = binding.qrCode
+        replaceFragment(HomeFragment())
 
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.home -> replaceFragment(HomeFragment())
+                R.id.env -> replaceFragment(EnvFragment())
+                R.id.receipt -> replaceFragment(ReceiptFragment())
 
-        docRef.get()
-            .addOnSuccessListener { documentSnapshot ->
-                val name = documentSnapshot.getString("fName")
-                nameTf.text = "Welcome back " + name + "!"
+                else -> {
+
+                }
             }
-            .addOnFailureListener { exception ->
-                Log.e("myError", "No name detected")
-
-            }
-
-        for (x in 0 until qrCodeWidth) {
-            for (y in 0 until qrCodeHeight) {
-                qrCodeBitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
-            }
+            true
         }
+    }
 
-        qrCode.setImageBitmap(qrCodeBitmap)
-
-        }
+    private fun replaceFragment(fragment: Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
+    }
 
 
 
