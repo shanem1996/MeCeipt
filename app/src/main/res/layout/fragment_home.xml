@@ -26,11 +26,31 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="20dp"/>
 
     <ImageView
         android:id="@+id/qrCode"
         android:layout_width="wrap_content"
         android:layout_height="300dp"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Have a physical receipt? Scan it using the button below!"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnScan"
+        android:layout_width="123dp"
+        android:layout_height="47dp"
+        android:background="@drawable/signup_signin_page_button"
+        android:text="Scan Receipt"
+        android:textColor="@color/white"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </LinearLayout>

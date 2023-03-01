@@ -1,15 +1,19 @@
 package com.example.meceipt.activities
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import com.example.meceipt.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -59,6 +63,7 @@ class HomeFragment : Fragment() {
         val qrCodeBitmap = Bitmap.createBitmap(qrCodeWidth, qrCodeHeight, Bitmap.Config.RGB_565)
         val qrCode = view.findViewById<ImageView>(R.id.qrCode)
         val nameTf = view.findViewById<TextView>(R.id.tfFName)
+        val scanBtn = view.findViewById<AppCompatButton>(R.id.btnScan)
 
         docRef.get()
             .addOnSuccessListener { documentSnapshot ->
@@ -77,6 +82,13 @@ class HomeFragment : Fragment() {
         }
 
         qrCode.setImageBitmap(qrCodeBitmap)
+
+        scanBtn.setOnClickListener {
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivity(intent)
+        }
+
+
         return view
     }
 
