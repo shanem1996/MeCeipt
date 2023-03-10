@@ -1,0 +1,50 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-30-node
+    steps:
+      - checkout
+      - run: echo "Building the app"
+      - run:
+          name: Install Dependencies
+          command: |
+            sudo apt-get update && sudo apt-get install -y lib32stdc++6 lib32z1
+            echo y | sdkmanager "ndk-bundle" "cmake;3.10.2.4988404" "lldb;3.1"
+      - run:
+          name: Build the APK
+          command: ./gradlew assembleDebug
+      - store_artifacts:
+          path: app/build/outputs/
+          destination: outputs
+      - store_test_results:
+          path: app/build/test-results/
+  test:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-30-node
+    steps:
+      - checkout
+      - run: echo "Running tests"
+      - run:
+          name: Install Dependencies
+          command: |
+            sudo apt-get update && sudo apt-get install -y lib32stdc++6 lib32z1
+            echo y | sdkmanager "ndk-bundle" "cmake;3.10.2.4988404" "lldb;3.1"
+      - run:
+          name: Build the APK and run unit tests
+          command: ./gradlew clean assembleDebug test
+      - store_test_results:
+          path: app/build/test-results/
+      - store_artifacts:
+          path: app/build/outputs/
+          destination: outputs
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
