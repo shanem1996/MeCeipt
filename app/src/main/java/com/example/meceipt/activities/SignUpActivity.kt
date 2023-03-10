@@ -1,6 +1,7 @@
 package com.example.meceipt.activities
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.service.controls.ControlsProviderService.TAG
@@ -9,6 +10,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.meceipt.R
 import com.example.meceipt.databinding.ActivitySignUpBinding
 import com.example.meceipt.firebase.FirestoreClass
@@ -19,6 +21,12 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.sql.Timestamp
+import java.time.Instant.now
+import java.time.LocalDate
+import java.time.LocalDate.now
+import java.time.LocalDateTime
+import java.time.LocalTime.now
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -26,6 +34,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,7 +63,7 @@ class SignUpActivity : AppCompatActivity() {
 
                             val currentUser = FirebaseAuth.getInstance().currentUser
                             val userId = currentUser!!.uid
-                            val docRef = firestore.collection("User").document(userId)
+                            val userDocRef = firestore.collection("User").document(userId)
 
                             val user = hashMapOf(
                                 "fName" to fName,
@@ -62,7 +71,30 @@ class SignUpActivity : AppCompatActivity() {
                                 "email" to email
                             )
 
-                            docRef.set(user).addOnSuccessListener {
+                            val receipt = hashMapOf(
+                                "date" to LocalDateTime.now(),
+                                "total" to 10.00,
+                                "items" to listOf(
+                                    hashMapOf(
+                                        "name" to "Item 1",
+                                        "price" to 5.00
+                                    ),
+                                    hashMapOf(
+                                        "name" to "Item 2",
+                                        "price" to 5.00
+                                    )
+                                )
+                            )
+
+                            val batch = FirebaseFirestore.getInstance().batch()
+
+                            batch.set(userDocRef, user)
+
+                            val receiptCollectionRef = userDocRef.collection("Receipt")
+                            batch.set(receiptCollectionRef.document(), receipt)
+                            batch.commit()
+
+                            userDocRef.set(user).addOnSuccessListener {
 
                                     val home = Intent(this, HomeActivity::class.java)
                                     startActivity(home)
