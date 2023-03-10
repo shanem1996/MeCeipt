@@ -6,6 +6,11 @@ jobs:
       - image: circleci/android:api-30-node
     steps:
       - checkout
+      - run:
+          name: Set Java version to 11
+          command: |
+            sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+            java -version
       - run: echo "Building the app"
       - run:
           name: Install Dependencies
@@ -29,6 +34,11 @@ jobs:
       - image: circleci/android:api-30-node
     steps:
       - checkout
+      - run:
+          name: Set Java version to 11
+          command: |
+            sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+            java -version
       - run: echo "Running tests"
       - run:
           name: Install Dependencies
