@@ -4,12 +4,10 @@ jobs:
     working_directory: ~/code
     docker:
       - image: cimg/android:2023.02
-    environment:
-      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     steps:
       - checkout
       - run:
-          name: Set Java version to 11
+          name: Check Java version
           command: java -version
       - run: echo "Building the app"
       - run:
@@ -32,12 +30,10 @@ jobs:
     working_directory: ~/code
     docker:
       - image: cimg/android:2023.02
-    environment:
-      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     steps:
       - checkout
       - run:
-          name: Set Java version to 11
+          name: Check Java version
           command: java -version
       - run: echo "Running tests"
       - run:
