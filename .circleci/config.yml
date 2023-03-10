@@ -13,6 +13,9 @@ jobs:
             sudo apt-get update && sudo apt-get install -y lib32stdc++6 lib32z1
             echo y | sdkmanager "ndk-bundle" "cmake;3.10.2.4988404"
       - run:
+          name: Grant execute permissions to gradlew
+          command: chmod +x ./gradlew
+      - run:
           name: Build the APK
           command: ./gradlew assembleDebug
       - store_artifacts:
@@ -32,6 +35,9 @@ jobs:
           command: |
             sudo apt-get update && sudo apt-get install -y lib32stdc++6 lib32z1
             echo y | sdkmanager "ndk-bundle" "cmake;3.10.2.4988404"
+      - run:
+          name: Grant execute permissions to gradlew
+          command: chmod +x ./gradlew
       - run:
           name: Build the APK and run unit tests
           command: ./gradlew clean assembleDebug test
