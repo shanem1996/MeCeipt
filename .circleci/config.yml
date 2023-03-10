@@ -9,10 +9,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Log into build container
-          command: |
-            docker run -it --entrypoint /bin/bash cimg/android:2023.02
-      - run:
           name: Set Java version to 11
           command: java -version
       - run: echo "Building the app"
