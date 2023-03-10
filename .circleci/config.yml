@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-31
+      - image: cimg/android:api-31
     environment:
       JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     steps:
@@ -35,7 +35,7 @@ jobs:
   test:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-31
+      - image: cimg/android:api-31
     environment:
       JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     steps:
