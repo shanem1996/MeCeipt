@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Log into build container
           command: |
-            docker run -it --entrypoint /bin/bash <DOCKER_IMAGE_NAME>
+            docker run -it --entrypoint /bin/bash circleci/android:api-30
       - run:
           name: Set Java version to 11
           command: java -version
