@@ -11,7 +11,7 @@ jobs:
           name: Install Dependencies
           command: |
             sudo apt-get update && sudo apt-get install -y lib32stdc++6 lib32z1
-            echo y | sdkmanager "ndk-bundle" "cmake;3.10.2.4988404" "lldb;3.1"
+            echo y | sdkmanager "ndk-bundle" "cmake;3.10.2.4988404" "lldb;latest"
       - run:
           name: Build the APK
           command: ./gradlew assembleDebug
@@ -31,7 +31,7 @@ jobs:
           name: Install Dependencies
           command: |
             sudo apt-get update && sudo apt-get install -y lib32stdc++6 lib32z1
-            echo y | sdkmanager "ndk-bundle" "cmake;3.10.2.4988404" "lldb;3.1"
+            echo y | sdkmanager "ndk-bundle" "cmake;3.10.2.4988404" "lldb;latest"
       - run:
           name: Build the APK and run unit tests
           command: ./gradlew clean assembleDebug test
