@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-30-node
+      - image: circleci/android:api-31
     environment:
       JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     steps:
@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Log into build container
           command: |
-            docker run -it --entrypoint /bin/bash circleci/android:api-30
+            docker run -it --entrypoint /bin/bash circleci/android:api-30-node
       - run:
           name: Set Java version to 11
           command: java -version
@@ -35,7 +35,7 @@ jobs:
   test:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-30-node
+      - image: circleci/android:api-31
     environment:
       JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     steps:
