@@ -9,6 +9,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Log into build container
+          command: |
+            docker run -it --entrypoint /bin/bash <DOCKER_IMAGE_NAME>
+      - run:
           name: Set Java version to 11
           command: java -version
       - run: echo "Building the app"
