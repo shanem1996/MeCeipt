@@ -20,10 +20,6 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
     val firestore = FirebaseFirestore.getInstance()
-    val currentUser = FirebaseAuth.getInstance().currentUser
-    val userId = currentUser!!.uid
-    val docRef = firestore.collection("User").document(userId)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,25 +34,60 @@ class SignInActivity : AppCompatActivity() {
             val password = binding.tfPasswordSignIn.text.toString().trim()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val home = Intent(this, HomeActivity::class.java)
-                        startActivity(home)
-                        docRef.get().addOnSuccessListener { documentSnapshot ->
-                            val name = documentSnapshot.getString("fName")
-                            Toast.makeText(this, "Welcome back, $name!", Toast.LENGTH_SHORT).show()
+                if (email.contains("@meceipt.com")) {
+                    firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            val currentUser = FirebaseAuth.getInstance().currentUser
+                            val userId = currentUser!!.uid
+                            val userDocRef = firestore.collection("Business").document(userId)
+                            val home = Intent(this, BusinessHomeActivity::class.java)
+                            startActivity(home)
+                            userDocRef.get().addOnSuccessListener { documentSnapshot ->
+                                val name = documentSnapshot.getString("companyName")
+                                Toast.makeText(this, "Welcome back to your $name! MeCeipt account!", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
+
+                        } else {
+                            Snackbar.make(
+                                view,
+                                "Login Failed - Invalid email or password",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+
                         }
 
-                    } else {
-                        Snackbar.make(view, "Login Failed - Invalid email or password", Snackbar.LENGTH_LONG).show()
+                    }
+                } else {
+                    firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            val currentUser = FirebaseAuth.getInstance().currentUser
+                            val userId = currentUser!!.uid
+                            val userDocRef = firestore.collection("User").document(userId)
+                            val home = Intent(this, HomeActivity::class.java)
+                            startActivity(home)
+                            userDocRef.get().addOnSuccessListener { documentSnapshot ->
+                                val name = documentSnapshot.getString("fName")
+                                Toast.makeText(this, "Welcome back, $name!", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
 
+
+                        } else {
+                            Snackbar.make(
+                                view,
+                                "Login Failed - Invalid email or password",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+
+                        }
                     }
 
                 }
             }
 
+
         }
     }
-
-
 }

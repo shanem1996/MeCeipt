@@ -30,7 +30,7 @@ import java.time.LocalTime.now
 
 class SignUpActivity : AppCompatActivity() {
 
-    val firestore = FirebaseFirestore.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -56,6 +56,11 @@ class SignUpActivity : AppCompatActivity() {
             if (fName.isNotEmpty() && lName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confPassword.isNotEmpty()){
                 if (password != confPassword) {
                     Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_LONG).show()
+
+
+
+                } else if (email.contains("@meceipt.com", ignoreCase = true)) {
+                    Snackbar.make(view, "Email address cannot be an MeCeipt email", Snackbar.LENGTH_LONG).show()
 
                 } else {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
@@ -96,21 +101,9 @@ class SignUpActivity : AppCompatActivity() {
 
                             userDocRef.set(user).addOnSuccessListener {
 
-                                    val home = Intent(this, HomeActivity::class.java)
-                                    startActivity(home)
+                                val home = Intent(this, HomeActivity::class.java)
+                                startActivity(home)
                             }
-
-
-
-//                                .addOnSuccessListener {
-//                                    val intent = Intent(this, HomeActivity::class.java)
-//                                    startActivity(intent)
-//                                }
-//                                .addOnFailureListener { e ->
-//                                    val intent = Intent(this, SignUpActivity::class.java)
-//                                    startActivity(intent)
-//                                }
-
 
 
 
@@ -123,6 +116,10 @@ class SignUpActivity : AppCompatActivity() {
                 Snackbar.make(view, "All fields must be filled", Snackbar.LENGTH_LONG).show()
 
             }
+        }
+        binding.btnSignUpBusiness.setOnClickListener {
+            val business = Intent(this, BusinessSignUpActivity::class.java)
+            startActivity(business)
         }
 
 

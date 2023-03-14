@@ -8,7 +8,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeCeipt">
-
+        <activity
+            android:name=".activities.BusinessHomeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".activities.BusinessSignUpActivity"
             android:exported="false">
@@ -23,7 +29,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".activities.SignInActivity"
             android:exported="false">

@@ -40,7 +40,10 @@ android {
 
 dependencies {
 
-
+    def lifecycle_ver = "2.4.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_ver"
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.google.zxing:core:3.4.1'
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

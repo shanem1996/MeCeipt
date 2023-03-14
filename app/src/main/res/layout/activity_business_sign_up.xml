@@ -38,11 +38,11 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"/>
 
-    <androidx.appcompat.widget.SearchView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tfCompany"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        app:queryHint="Company name"
+        android:hint="Company name"
         app:iconifiedByDefault="false"/>
 
 
@@ -50,7 +50,15 @@
         android:id="@+id/tfPassword"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:hint="Password" />
+        android:hint="Password"
+        android:inputType="textPassword"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tfConfPassword"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"/>
 
     <Space
         android:layout_width="match_parent"
@@ -64,6 +72,11 @@
         android:text="@string/sign_up"
         android:textColor="@color/white"
         tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/API"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 
