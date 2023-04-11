@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.meceipt.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +38,31 @@ class EnvFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_env, container, false)
+        val view = inflater.inflate(R.layout.fragment_env, container, false)
+
+        val firestore = FirebaseFirestore.getInstance()
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userId = currentUser!!.uid
+        val userDocRef = firestore.collection("User").document(userId)
+        val receiptCollectionRef = userDocRef.collection("Receipt")
+
+        userDocRef.get().addOnSuccessListener { documentSnapshot ->
+            val fName = documentSnapshot.getString("fName")
+            val welcomeTf = view.findViewById<TextView>(R.id.tfWelcome)
+            welcomeTf.text = "Hi $fName!, you can find your Environmental Impact Statistics below!"
+
+        }
+
+        receiptCollectionRef.get().addOnSuccessListener { snapshot ->
+            val receiptAmount = snapshot.size().toString()
+            val tfAmount = view.findViewById<TextView>(R.id.tfReceiptAmount)
+            tfAmount.text = "You have accumulated $receiptAmount receipts!"
+
+
+        }
+
+
+        return view
     }
 
     companion object {
