@@ -6,4 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".activities.AdminHomeActivity">
 
+    <TextView
+        android:id="@+id/tfWelcomeAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.212" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddReceipt"
+        android:layout_width="123dp"
+        android:layout_height="47dp"
+        android:background="@drawable/signup_signin_page_button"
+        android:text="Add a Receipt"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tfWelcomeAdmin"
+        app:layout_constraintVertical_bias="0.272"
+        tools:ignore="TouchTargetSizeCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
