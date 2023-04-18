@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
 import com.example.meceipt.R
 import com.google.firebase.auth.FirebaseAuth
@@ -31,7 +32,14 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
+    private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { isTaken ->
+        if (isTaken){
+
+        }
+
+    }
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -84,8 +92,7 @@ class HomeFragment : Fragment() {
         qrCode.setImageBitmap(qrCodeBitmap)
 
         scanBtn.setOnClickListener {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivity(intent)
+            takePhoto.launch(null)
         }
 
 

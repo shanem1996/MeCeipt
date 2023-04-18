@@ -65,12 +65,23 @@ class SignInActivity : AppCompatActivity() {
                             val currentUser = FirebaseAuth.getInstance().currentUser
                             val userId = currentUser!!.uid
                             val userDocRef = firestore.collection("User").document(userId)
-                            val home = Intent(this, HomeActivity::class.java)
-                            startActivity(home)
+
                             userDocRef.get().addOnSuccessListener { documentSnapshot ->
-                                val name = documentSnapshot.getString("fName")
-                                Toast.makeText(this, "Welcome back, $name!", Toast.LENGTH_SHORT)
-                                    .show()
+                                val admin = documentSnapshot.getBoolean("admin")
+                                if (admin != null && admin) {
+                                    val name = documentSnapshot.getString("fName")
+                                    Toast.makeText(this, "Welcome back, $name!", Toast.LENGTH_SHORT)
+                                        .show()
+                                    val adminHome = Intent(this, AdminHomeActivity::class.java)
+                                    startActivity(adminHome)
+                                } else {
+                                    val name = documentSnapshot.getString("fName")
+                                    Toast.makeText(this, "Welcome back, $name!", Toast.LENGTH_SHORT)
+                                        .show()
+                                    val home = Intent(this, HomeActivity::class.java)
+                                    startActivity(home)
+                                }
+
                             }
 
 
