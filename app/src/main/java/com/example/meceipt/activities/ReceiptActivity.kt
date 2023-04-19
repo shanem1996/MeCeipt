@@ -1,10 +1,14 @@
 package com.example.meceipt.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meceipt.adapter.ReceiptAdapter
 import com.example.meceipt.databinding.ActivityReceiptBinding
+import com.example.meceipt.databinding.FragmentReceiptBinding
+import com.example.meceipt.databinding.ReceiptItemBinding
 import com.example.meceipt.models.Receipt
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -34,7 +38,26 @@ class ReceiptActivity : AppCompatActivity() {
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(this)
 
+            val receiptItemBinding: ReceiptItemBinding = ReceiptItemBinding.inflate(layoutInflater)
+            val addBtn = receiptItemBinding.btnAdd
+            val tv = receiptItemBinding.tvCompanyName
+
+            tv.setOnClickListener {
+                Toast.makeText(this, "Receipt Added!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+
+            addBtn.setOnClickListener {
+                val receipt = Intent(this, FragmentReceiptBinding::class.java)
+                startActivity(receipt)
+                Toast.makeText(this, "Receipt Added!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
 
         }
+
+
     }
 }

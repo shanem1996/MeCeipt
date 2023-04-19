@@ -10,10 +10,12 @@ import org.w3c.dom.Text
 
 class ReceiptViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val companyNameTv: TextView = itemView.findViewById(R.id.tvCompanyName)
-    private val addressTv: TextView = itemView.findViewById(R.id.tvAddress)
+    private val dateTv: TextView = itemView.findViewById(R.id.tvDate)
 
     fun bind(receipt: Receipt) {
         companyNameTv.text = receipt.companyName
-        addressTv.text = receipt.address
+        dateTv.text = receipt.date
     }
+
+
 }
