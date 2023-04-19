@@ -72,6 +72,7 @@ class HomeFragment : Fragment() {
         val qrCode = view.findViewById<ImageView>(R.id.qrCode)
         val nameTf = view.findViewById<TextView>(R.id.tfFName)
         val scanBtn = view.findViewById<AppCompatButton>(R.id.btnScan)
+        val addReceiptBtn = view.findViewById<AppCompatButton>(R.id.btnAddReceipt)
 
         docRef.get()
             .addOnSuccessListener { documentSnapshot ->
@@ -93,6 +94,11 @@ class HomeFragment : Fragment() {
 
         scanBtn.setOnClickListener {
             takePhoto.launch(null)
+        }
+
+        addReceiptBtn.setOnClickListener {
+            val addReceipt = Intent(requireContext(), ReceiptActivity::class.java)
+            startActivity(addReceipt)
         }
 
 

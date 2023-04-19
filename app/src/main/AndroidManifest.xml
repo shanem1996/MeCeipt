@@ -11,6 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeCeipt">
         <activity
+            android:name=".activities.ReceiptActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activities.CreateReceiptActivity"
             android:exported="false">
             <meta-data
