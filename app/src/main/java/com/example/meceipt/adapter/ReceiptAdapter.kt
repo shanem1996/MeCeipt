@@ -14,6 +14,8 @@ import com.example.meceipt.activities.ReceiptFragment
 import com.example.meceipt.databinding.FragmentReceiptBinding
 import com.example.meceipt.databinding.ReceiptItemBinding
 import com.example.meceipt.models.Receipt
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ReceiptAdapter(private val receiptList: List<Receipt>) : RecyclerView.Adapter<ReceiptAdapter.ReceiptViewHolder>() {
 
@@ -40,11 +42,32 @@ class ReceiptAdapter(private val receiptList: List<Receipt>) : RecyclerView.Adap
             companyNameTv.text = receipt.companyName
             dateTv.text = receipt.date
 
+
             addBtn.setOnClickListener {
-                val receipt = Intent(itemView.context, HomeActivity::class.java)
-                itemView.context.startActivity(receipt)
-                Toast.makeText(itemView.context, "Receipt Added!", Toast.LENGTH_SHORT)
-                    .show()
+
+                val transaction = receipt.transactionNumber
+                val transactionString = transaction.toString()
+                val companyName = receipt.companyName
+                val date = receipt.date
+                val address = receipt.address
+
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                val uid = currentUser?.uid.toString()
+                val userReceiptColRef = FirebaseFirestore.getInstance().collection("User").document(uid).collection("Receipt")
+
+                val receiptData = hashMapOf(
+                    "companyName" to companyName,
+                    "address" to address,
+                    "transactionNumber" to transaction,
+                    "date" to date,
+                )
+
+                userReceiptColRef.document(transactionString).set(receiptData).addOnSuccessListener {
+                    val receipt = Intent(itemView.context, HomeActivity::class.java)
+                    itemView.context.startActivity(receipt)
+                    Toast.makeText(itemView.context, "Receipt Added!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
     }
