@@ -1,11 +1,18 @@
 package com.example.meceipt.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meceipt.R
+import com.example.meceipt.activities.HomeActivity
+import com.example.meceipt.activities.ReceiptFragment
+import com.example.meceipt.databinding.FragmentReceiptBinding
+import com.example.meceipt.databinding.ReceiptItemBinding
 import com.example.meceipt.models.Receipt
 
 class ReceiptAdapter(private val receiptList: List<Receipt>) : RecyclerView.Adapter<ReceiptAdapter.ReceiptViewHolder>() {
@@ -24,12 +31,21 @@ class ReceiptAdapter(private val receiptList: List<Receipt>) : RecyclerView.Adap
     }
 
     inner class ReceiptViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val companyNameTv: TextView = itemView.findViewById(R.id.tvCompanyName)
-        private val dateTv: TextView = itemView.findViewById(R.id.tvDate)
+        private val binding = ReceiptItemBinding.bind(itemView)
+        private val companyNameTv = binding.tvCompanyName
+        private val dateTv = binding.tvDate
+        private val addBtn = binding.btnAdd
 
         fun bind(receipt: Receipt) {
             companyNameTv.text = receipt.companyName
             dateTv.text = receipt.date
+
+            addBtn.setOnClickListener {
+                val receipt = Intent(itemView.context, HomeActivity::class.java)
+                itemView.context.startActivity(receipt)
+                Toast.makeText(itemView.context, "Receipt Added!", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 }
