@@ -6,9 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.meceipt.R
+import com.example.meceipt.adapter.UserReceiptAdapter
+import com.example.meceipt.models.UserReceipt
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,6 +45,27 @@ class ReceiptFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_receipt, container, false)
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val uid = currentUser?.uid.toString()
+        val userReceiptQuery = FirebaseFirestore.getInstance().collection("User").document(uid).collection("Receipt").orderBy("date", Query.Direction.DESCENDING)
+
+        userReceiptQuery.get().addOnSuccessListener { documents ->
+            val receiptList = mutableListOf<UserReceipt>()
+            for (document in documents) {
+                val userReceipt = document.toObject(UserReceipt::class.java)
+                receiptList.add(userReceipt)
+            }
+
+            val adapter = UserReceiptAdapter(receiptList)
+            val recyclerView = view.findViewById<RecyclerView>(R.id.userReceiptRecyclerView)
+
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        }
+
+
 
 
         return view
