@@ -56,6 +56,7 @@ class BusinessHomeActivity : AppCompatActivity() {
                         val docRef = FirebaseFirestore.getInstance().collection("Business").document(uid)
 
                         docRef.get().addOnSuccessListener { businessDocumentSnapshot ->
+                            val userReceiptColRef = FirebaseFirestore.getInstance().collection("User").document(scannedResult).collection("Receipt")
                             val name = businessDocumentSnapshot.getString("companyName").toString()
 
                             val transaction = randomNumber()
@@ -73,9 +74,11 @@ class BusinessHomeActivity : AppCompatActivity() {
 
                             val documentId = transaction.toString()
 
-                            val receiptCollectionRef = FirebaseFirestore.getInstance().collection("Receipt")
-                            receiptCollectionRef.document(documentId).set(newReceipt).addOnSuccessListener {
-                                Log.d(ControlsProviderService.TAG, "Document added with ID: $documentId")
+                            userReceiptColRef.document(documentId).set(newReceipt).addOnSuccessListener {
+                                val receipt = Intent(this, BusinessHomeActivity::class.java)
+                                startActivity(receipt)
+                                Toast.makeText(this, "Receipt Added!", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
 
