@@ -54,37 +54,30 @@ class BusinessHomeActivity : AppCompatActivity() {
                         val firebaseAuth = FirebaseAuth.getInstance().currentUser
                         val uid = firebaseAuth?.uid.toString()
                         val docRef = FirebaseFirestore.getInstance().collection("Business").document(uid)
-                        var name: String = ""
 
                         docRef.get().addOnSuccessListener { businessDocumentSnapshot ->
-                            name = businessDocumentSnapshot.getString("companyName").toString()
+                            val name = businessDocumentSnapshot.getString("companyName").toString()
+
+                            val transaction = randomNumber()
+
+                            val currentDate = LocalDate.now()
+                            val format = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                            val date = currentDate.format(format)
+
+                            val  newReceipt = hashMapOf(
+                                "companyName" to name,
+                                "address" to null,
+                                "transactionNumber" to transaction,
+                                "date" to date,
+                            )
+
+                            val documentId = transaction.toString()
+
+                            val receiptCollectionRef = FirebaseFirestore.getInstance().collection("Receipt")
+                            receiptCollectionRef.document(documentId).set(newReceipt).addOnSuccessListener {
+                                Log.d(ControlsProviderService.TAG, "Document added with ID: $documentId")
+                            }
                         }
-
-                        Toast.makeText(this, "$name", Toast.LENGTH_SHORT)
-                            .show()
-
-
-
-                        val transaction = randomNumber()
-
-                        val currentDate = LocalDate.now()
-                        val format = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-                        val date = currentDate.format(format)
-
-                        val  newReceipt = hashMapOf(
-                            "companyName" to name,
-                            "address" to null,
-                            "transactionNumber" to transaction,
-                            "date" to date,
-                        )
-
-                        val documentId = transaction.toString()
-
-                        val receiptCollectionRef = FirebaseFirestore.getInstance().collection("Receipt")
-                        receiptCollectionRef.document(documentId).set(newReceipt).addOnSuccessListener {
-                            Log.d(ControlsProviderService.TAG, "Document added with ID: $documentId")
-                        }
-
 
                     } else {
                         Toast.makeText(this, "Document Not Found", Toast.LENGTH_SHORT)
