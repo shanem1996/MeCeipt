@@ -6,4 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activities.BusinessHomeActivity">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnScan"
+        android:layout_width="123dp"
+        android:layout_height="47dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.395"
+        android:background="@drawable/signup_signin_page_button"
+        android:text="Scan Receipt"
+        android:textColor="@color/white"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
