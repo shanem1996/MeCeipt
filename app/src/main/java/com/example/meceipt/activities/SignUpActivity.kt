@@ -76,28 +76,7 @@ class SignUpActivity : AppCompatActivity() {
                                 "email" to email
                             )
 
-                            val receipt = hashMapOf(
-                                "date" to LocalDateTime.now(),
-                                "total" to 10.00,
-                                "items" to listOf(
-                                    hashMapOf(
-                                        "name" to "Item 1",
-                                        "price" to 5.00
-                                    ),
-                                    hashMapOf(
-                                        "name" to "Item 2",
-                                        "price" to 5.00
-                                    )
-                                )
-                            )
-
-                            val batch = FirebaseFirestore.getInstance().batch()
-
-                            batch.set(userDocRef, user)
-
                             val receiptCollectionRef = userDocRef.collection("Receipt")
-                            batch.set(receiptCollectionRef.document(), receipt)
-                            batch.commit()
 
                             userDocRef.set(user).addOnSuccessListener {
 

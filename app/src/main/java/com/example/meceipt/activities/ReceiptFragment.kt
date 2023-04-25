@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meceipt.R
@@ -51,17 +52,23 @@ class ReceiptFragment : Fragment() {
         val userReceiptQuery = FirebaseFirestore.getInstance().collection("User").document(uid).collection("Receipt").orderBy("date", Query.Direction.DESCENDING)
 
         userReceiptQuery.get().addOnSuccessListener { documents ->
-            val receiptList = mutableListOf<UserReceipt>()
-            for (document in documents) {
-                val userReceipt = document.toObject(UserReceipt::class.java)
-                receiptList.add(userReceipt)
+            if (documents.isEmpty) {
+                Toast.makeText(requireContext(), "There are no receipts to display", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                val receiptList = mutableListOf<UserReceipt>()
+                for (document in documents) {
+                    val userReceipt = document.toObject(UserReceipt::class.java)
+                    receiptList.add(userReceipt)
+                }
+
+                val adapter = UserReceiptAdapter(receiptList)
+                val recyclerView = view.findViewById<RecyclerView>(R.id.userReceiptRecyclerView)
+
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
             }
 
-            val adapter = UserReceiptAdapter(receiptList)
-            val recyclerView = view.findViewById<RecyclerView>(R.id.userReceiptRecyclerView)
-
-            recyclerView.adapter = adapter
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         }
 

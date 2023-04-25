@@ -31,7 +31,7 @@ class UserReceiptAdapter(private val receiptList: List<UserReceipt>) : RecyclerV
 
         fun bind(userReceipt: UserReceipt) {
             companyNameTv.text = userReceipt.companyName
-            dateTv.text = userReceipt.date
+            dateTv.text = userReceipt.date.toString()
 
             addBtn.setOnClickListener{
 
