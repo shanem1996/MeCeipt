@@ -57,8 +57,6 @@ class SignUpActivity : AppCompatActivity() {
                 if (password != confPassword) {
                     Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_LONG).show()
 
-
-
                 } else if (email.contains("@meceipt.com", ignoreCase = true)) {
                     Snackbar.make(view, "Email address cannot be an MeCeipt email", Snackbar.LENGTH_LONG).show()
 
@@ -75,8 +73,6 @@ class SignUpActivity : AppCompatActivity() {
                                 "lName" to lName,
                                 "email" to email
                             )
-
-                            val receiptCollectionRef = userDocRef.collection("Receipt")
 
                             userDocRef.set(user).addOnSuccessListener {
 

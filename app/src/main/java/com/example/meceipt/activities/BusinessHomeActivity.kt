@@ -28,7 +28,21 @@ class BusinessHomeActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        val statsTf = binding.tfStats
+        val currentUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
+        val userDocRef = FirebaseFirestore.getInstance().collection("Business").document(currentUser)
+        userDocRef.get().addOnSuccessListener { documentSnapshot ->
+            val name = documentSnapshot.getString("companyName").toString()
+            val query = FirebaseFirestore.getInstance().collection("Receipt").whereEqualTo("companyName", name)
+            query.get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val count = task.result.count().toString()
+                    statsTf.text = "$name, your company has digitally distributed $count receipts! Keep up the good work!"
+                }
+
+            }
+        }
 
         val scanBtn = binding.btnScan
         scanBtn.setOnClickListener {
@@ -54,6 +68,7 @@ class BusinessHomeActivity : AppCompatActivity() {
                         val firebaseAuth = FirebaseAuth.getInstance().currentUser
                         val uid = firebaseAuth?.uid.toString()
                         val docRef = FirebaseFirestore.getInstance().collection("Business").document(uid)
+                        val receiptDocRef = FirebaseFirestore.getInstance().collection("Receipt")
 
                         docRef.get().addOnSuccessListener { businessDocumentSnapshot ->
                             val userReceiptColRef = FirebaseFirestore.getInstance().collection("User").document(scannedResult).collection("Receipt")
@@ -64,12 +79,18 @@ class BusinessHomeActivity : AppCompatActivity() {
                             val currentDate = LocalDate.now()
                             val format = DateTimeFormatter.ofPattern("dd-MM-yyyy")
                             val date = currentDate.format(format)
+                            val totalCost = randomDouble()
 
                             val  newReceipt = hashMapOf(
                                 "companyName" to name,
                                 "address" to null,
                                 "transactionNumber" to transaction,
                                 "date" to date,
+                                "totalCost" to totalCost
+                            )
+
+                            val basicReceipt = hashMapOf(
+                                "companyName" to name
                             )
 
                             val documentId = transaction.toString()
@@ -79,7 +100,10 @@ class BusinessHomeActivity : AppCompatActivity() {
                                 startActivity(receipt)
                                 Toast.makeText(this, "Receipt Added!", Toast.LENGTH_SHORT)
                                     .show()
+                                receiptDocRef.document(documentId).set(basicReceipt)
                             }
+
+
                         }
 
                     } else {
@@ -97,5 +121,13 @@ class BusinessHomeActivity : AppCompatActivity() {
     private fun randomNumber(): Int {
         val number = java.util.Random()
         return number.nextInt(90000000) + 10000000
+    }
+
+    private fun randomDouble(): Double {
+        val number1 = java.util.Random()
+        val number2 = java.util.Random()
+        val beforePoint = number1.nextInt(900) + 100
+        val afterPoint = number2.nextInt(90) + 10
+        return "$beforePoint.$afterPoint".toDouble()
     }
 }

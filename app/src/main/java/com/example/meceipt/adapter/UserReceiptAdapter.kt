@@ -47,13 +47,16 @@ class UserReceiptAdapter(private val receiptList: List<UserReceipt>) : RecyclerV
             deleteBtn.setOnClickListener{
                 val user = FirebaseAuth.getInstance().currentUser?.uid.toString()
                 val documentRef = FirebaseFirestore.getInstance().collection("User").document(user).collection("Receipt").document(transactionNumber)
+                val receiptDocRef = FirebaseFirestore.getInstance().collection("Receipt").document(transactionNumber)
 
+
+                receiptDocRef.delete()
+                documentRef.delete()
                 Toast.makeText(itemView.context, "Receipt Deleted!", Toast.LENGTH_SHORT)
                     .show()
-
-                documentRef.delete()
                 val receiptFragment = Intent(itemView.context, HomeActivity::class.java)
                 itemView.context.startActivity(receiptFragment)
+
             }
         }
     }
