@@ -11,6 +11,7 @@ class UserReceiptViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     private val companyNameTv: TextView = itemView.findViewById(R.id.tvCompanyName)
     private val dateTv: TextView = itemView.findViewById(R.id.tvDate)
 
+
     fun bind(userReceipt: UserReceipt) {
         companyNameTv.text = userReceipt.companyName
         dateTv.text = userReceipt.date

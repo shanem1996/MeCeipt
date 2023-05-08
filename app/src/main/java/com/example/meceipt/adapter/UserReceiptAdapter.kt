@@ -1,10 +1,12 @@
 package com.example.meceipt.adapter
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meceipt.R
 import com.example.meceipt.activities.HomeActivity
@@ -42,7 +44,42 @@ class UserReceiptAdapter(private val receiptList: List<UserReceipt>) : RecyclerV
             companyNameTv.text = userReceipt.companyName
             dateTv.text = userReceipt.date.toString()
 
+
             val transactionNumber = userReceipt.transactionNumber.toString()
+
+            companyNameTv.setOnClickListener {
+                val user = FirebaseAuth.getInstance().currentUser?.uid.toString()
+                val documentRef = FirebaseFirestore.getInstance().collection("User").document(user).collection("Receipt").document(transactionNumber)
+
+                documentRef.get().addOnSuccessListener { documentSnapshot ->
+                    val name = documentSnapshot.getString("companyName")
+                    val date = documentSnapshot.getString("date")
+                    val totalCost = documentSnapshot.getDouble("totalCost").toString()
+                    val transNumber = documentSnapshot.get("transactionNumber")
+
+                    val receiptDialogBuilder = AlertDialog.Builder(itemView.context)
+                    receiptDialogBuilder.setTitle("Receipt from $name on $date")
+                    receiptDialogBuilder.setMessage("Store: $name\n" +
+                            "Date: $date\n" +
+                            "Transaction No.: $transNumber\n" +
+                            "Total Cost: €$totalCost")
+                    receiptDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                        dialog.dismiss()
+
+                    }
+                    val receiptDialog = receiptDialogBuilder.create()
+                    receiptDialog.setOnShowListener {
+                        receiptDialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+                    }
+                    receiptDialog.show()
+
+
+                }
+
+
+
+            }
+
 
             deleteBtn.setOnClickListener{
                 val user = FirebaseAuth.getInstance().currentUser?.uid.toString()
