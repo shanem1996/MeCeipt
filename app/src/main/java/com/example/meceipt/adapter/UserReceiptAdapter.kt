@@ -82,17 +82,36 @@ class UserReceiptAdapter(private val receiptList: List<UserReceipt>) : RecyclerV
 
 
             deleteBtn.setOnClickListener{
-                val user = FirebaseAuth.getInstance().currentUser?.uid.toString()
-                val documentRef = FirebaseFirestore.getInstance().collection("User").document(user).collection("Receipt").document(transactionNumber)
-                val receiptDocRef = FirebaseFirestore.getInstance().collection("Receipt").document(transactionNumber)
+                val deleteReceiptDialogBuilder = AlertDialog.Builder(itemView.context)
+                deleteReceiptDialogBuilder.setTitle("Delete Receipt")
+                deleteReceiptDialogBuilder.setMessage("Are you sure you want to delete this receipt?")
+                deleteReceiptDialogBuilder.setPositiveButton("Delete Receipt") { dialog, _ ->
+                    val user = FirebaseAuth.getInstance().currentUser?.uid.toString()
+                    val documentRef = FirebaseFirestore.getInstance().collection("User").document(user).collection("Receipt").document(transactionNumber)
+                    val receiptDocRef = FirebaseFirestore.getInstance().collection("Receipt").document(transactionNumber)
 
 
-                receiptDocRef.delete()
-                documentRef.delete()
-                Toast.makeText(itemView.context, "Receipt Deleted!", Toast.LENGTH_SHORT)
-                    .show()
-                val receiptFragment = Intent(itemView.context, HomeActivity::class.java)
-                itemView.context.startActivity(receiptFragment)
+                    receiptDocRef.delete()
+                    documentRef.delete()
+                    Toast.makeText(itemView.context, "Receipt Deleted!", Toast.LENGTH_SHORT)
+                        .show()
+                    val receiptFragment = Intent(itemView.context, HomeActivity::class.java)
+                    itemView.context.startActivity(receiptFragment)
+
+                }
+
+                deleteReceiptDialogBuilder.setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+
+                }
+
+                val deleteReceiptDialog = deleteReceiptDialogBuilder.create()
+                deleteReceiptDialog.setOnShowListener {
+                    deleteReceiptDialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+                    deleteReceiptDialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+                }
+
+                deleteReceiptDialog.show()
 
             }
         }
