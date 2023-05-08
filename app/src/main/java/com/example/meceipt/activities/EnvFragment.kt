@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.meceipt.R
 import com.google.firebase.auth.FirebaseAuth
@@ -49,17 +50,21 @@ class EnvFragment : Fragment() {
         userDocRef.get().addOnSuccessListener { documentSnapshot ->
             val fName = documentSnapshot.getString("fName")
             val welcomeTf = view.findViewById<TextView>(R.id.tfWelcome)
-            welcomeTf.text = "Hi $fName!, you can find your Environmental Impact Statistics below!"
+            welcomeTf.text = "Hi $fName!, you can find your MeCeipt Statistics below!"
 
         }
 
         receiptCollectionRef.get().addOnSuccessListener { snapshot ->
-            val receiptAmount = snapshot.size().toString()
+            val receiptAmount = snapshot.size()
+            val amountString = receiptAmount.toString()
             val tfAmount = view.findViewById<TextView>(R.id.tfReceiptAmount)
-            tfAmount.text = "You have accumulated $receiptAmount receipts!"
+            tfAmount.text = "You have accumulated $amountString receipts!"
 
-
+            val progress = view.findViewById<ProgressBar>(R.id.receiptProgress)
+            progress.progress = receiptAmount * 10
         }
+
+
 
 
         return view
