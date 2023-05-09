@@ -13,9 +13,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
 import com.example.meceipt.R
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.BarcodeFormat
@@ -72,7 +74,6 @@ class HomeFragment : Fragment() {
         val qrCode = view.findViewById<ImageView>(R.id.qrCode)
         val nameTf = view.findViewById<TextView>(R.id.tfFName)
         val scanBtn = view.findViewById<AppCompatButton>(R.id.btnScan)
-        val addReceiptBtn = view.findViewById<AppCompatButton>(R.id.btnAddReceipt)
 
         docRef.get()
             .addOnSuccessListener { documentSnapshot ->
@@ -93,12 +94,8 @@ class HomeFragment : Fragment() {
         qrCode.setImageBitmap(qrCodeBitmap)
 
         scanBtn.setOnClickListener {
-            takePhoto.launch(null)
-        }
-
-        addReceiptBtn.setOnClickListener {
-            val addReceipt = Intent(requireContext(), ReceiptActivity::class.java)
-            startActivity(addReceipt)
+            Toast.makeText(requireContext(), "This functionality is not yet available", Toast.LENGTH_SHORT)
+                .show()
         }
 
 

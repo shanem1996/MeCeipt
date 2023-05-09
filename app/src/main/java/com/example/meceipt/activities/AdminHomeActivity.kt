@@ -31,11 +31,11 @@ class AdminHomeActivity : AppCompatActivity() {
 
         }
 
-        val addReceiptBtn = binding.btnAddReceipt
+        val usersBtn = binding.btnUsers
 
-        addReceiptBtn.setOnClickListener {
-            val createReceipt = Intent(this, CreateReceiptActivity::class.java)
-            startActivity(createReceipt)
+        usersBtn.setOnClickListener {
+            val users = Intent(this, UsersActivity::class.java)
+            startActivity(users)
         }
     }
 }
