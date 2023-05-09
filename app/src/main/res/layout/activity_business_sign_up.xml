@@ -43,7 +43,10 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:hint="Company name"
-        app:iconifiedByDefault="false"/>
+        app:iconifiedByDefault="false"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"
+        />
 
 
     <com.google.android.material.textfield.TextInputEditText
@@ -51,14 +54,18 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:hint="Password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tfConfPassword"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:hint="Confirm Password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"/>
 
     <Space
         android:layout_width="match_parent"

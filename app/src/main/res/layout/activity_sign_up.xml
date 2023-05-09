@@ -51,13 +51,17 @@
             android:layout_width="175dp"
             android:layout_height="50dp"
             android:hint="First Name"
+            android:backgroundTint="@color/black"
+            android:textCursorDrawable="@color/black"
             />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tfLName"
             android:layout_width="175dp"
             android:layout_height="50dp"
-            android:hint="Last Name" />
+            android:hint="Last Name"
+            android:backgroundTint="@color/black"
+            android:textCursorDrawable="@color/black"/>
 
     </LinearLayout>
 
@@ -72,7 +76,9 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:hint="Password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tfConfPassword"
@@ -80,6 +86,8 @@
         android:layout_height="50dp"
         android:hint="Confirm Password"
         android:inputType="textPassword"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"
         />
 
     <Space

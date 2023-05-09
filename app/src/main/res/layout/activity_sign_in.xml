@@ -42,14 +42,18 @@
         android:id="@+id/tfEmailSignIn"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:hint="Email address" />
+        android:hint="Email address"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tfPasswordSignIn"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:hint="Password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@color/black"/>
 
     <Space
         android:layout_width="match_parent"
@@ -62,7 +66,8 @@
         android:background="@drawable/signup_signin_page_button"
         android:text="@string/sign_in"
         android:textColor="@color/white"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck"
+        />
 
 
 </LinearLayout>
