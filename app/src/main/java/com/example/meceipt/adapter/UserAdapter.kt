@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meceipt.R
+import com.example.meceipt.databinding.UserItemBinding
 import com.example.meceipt.databinding.UserReceiptItemBinding
 import com.example.meceipt.models.User
 
@@ -28,8 +29,8 @@ class UserAdapter(private val userList: List<User>) : RecyclerView.Adapter<UserA
 
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = UserReceiptItemBinding.bind(itemView)
-        private val deleteBtn = binding.btnDelete
+        private val binding = UserItemBinding.bind(itemView)
+        private val deleteBtn = binding.btnUserDelete
         private val userNameTv: TextView = itemView.findViewById(R.id.tvUserName)
         private val userEmailTv: TextView = itemView.findViewById(R.id.tvUserEmail)
 
