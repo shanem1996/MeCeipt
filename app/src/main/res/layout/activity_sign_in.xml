@@ -44,7 +44,9 @@
         android:layout_height="50dp"
         android:hint="Email address"
         android:backgroundTint="@color/black"
-        android:textCursorDrawable="@color/black"/>
+        android:textCursorDrawable="@color/black"
+        android:maxLines="1"
+        android:singleLine="true"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tfPasswordSignIn"
@@ -53,7 +55,9 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:backgroundTint="@color/black"
-        android:textCursorDrawable="@color/black"/>
+        android:textCursorDrawable="@color/black"
+        android:maxLines="1"
+        android:singleLine="true"/>
 
     <Space
         android:layout_width="match_parent"

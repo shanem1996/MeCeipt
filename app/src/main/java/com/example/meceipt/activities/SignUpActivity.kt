@@ -55,12 +55,12 @@ class SignUpActivity : AppCompatActivity() {
 
             if (fName.isNotEmpty() && lName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confPassword.isNotEmpty()){
                 if (password != confPassword) {
-                    Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_LONG).show()
+                    Toast.makeText(this, "Passwords do not match", Toast.LENGTH_LONG).show()
 
                 } else if (email.contains("@meceipt.com", ignoreCase = true)) {
-                    Snackbar.make(view, "Email address cannot be an MeCeipt email", Snackbar.LENGTH_LONG).show()
+                    Toast.makeText(this, "Email address cannot be an MeCeipt email", Toast.LENGTH_LONG).show()
 
-                } else {
+                } else if (validatePassword(password)){
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                         if (it.isSuccessful){
 
@@ -83,12 +83,15 @@ class SignUpActivity : AppCompatActivity() {
 
 
                         } else {
-                            Snackbar.make(view, it.exception.toString(), Snackbar.LENGTH_LONG).show()
+                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_LONG).show()
                         }
                     }
+                } else {
+                    Toast.makeText(this, "Password must have a number.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Password must be at least 8 characters long", Toast.LENGTH_LONG).show()
                 }
             } else {
-                Snackbar.make(view, "All fields must be filled", Snackbar.LENGTH_LONG).show()
+                Toast.makeText(this, "All fields must be filled", Toast.LENGTH_LONG).show()
 
             }
         }
@@ -98,5 +101,10 @@ class SignUpActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    fun validatePassword(password: String): Boolean {
+        val regex = Regex("^(?=.*\\d).{8,}$")
+        return regex.matches(password)
     }
 }

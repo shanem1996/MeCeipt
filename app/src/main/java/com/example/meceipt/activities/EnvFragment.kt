@@ -50,7 +50,7 @@ class EnvFragment : Fragment() {
         userDocRef.get().addOnSuccessListener { documentSnapshot ->
             val fName = documentSnapshot.getString("fName")
             val welcomeTf = view.findViewById<TextView>(R.id.tfWelcome)
-            welcomeTf.text = "Hi $fName!, you can find your MeCeipt Statistics below!"
+            welcomeTf.text = "Hi $fName!\nYou can find your MeCeipt Statistics below!"
 
         }
 
