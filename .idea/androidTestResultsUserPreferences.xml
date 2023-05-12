@@ -17,6 +17,60 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-1032791525">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-G980F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-554079910">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8N308045R" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-G980F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-15496714">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="adb-RF8N308045R-Emwdv3._adb-tls-connect._tcp" value="120" />
+                  <entry key="samsung&#10; SM-G980F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="341343207">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-G980F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="1209411718">
           <value>
             <AndroidTestResultsTableState>
@@ -25,6 +79,20 @@
                   <entry key="Duration" value="90" />
                   <entry key="Tests" value="360" />
                   <entry key="adb-RF8N308045R-Emwdv3._adb-tls-connect._tcp" value="120" />
+                  <entry key="samsung&#10; SM-G980F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1816084329">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8N308045R" value="120" />
+                  <entry key="Tests" value="360" />
                   <entry key="samsung&#10; SM-G980F" value="120" />
                 </map>
               </option>

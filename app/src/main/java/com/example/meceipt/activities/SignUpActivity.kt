@@ -45,7 +45,6 @@ class SignUpActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        //Listening for the Sign Up button to be pressed
         binding.btnSignUpPage.setOnClickListener {
             val fName = binding.tfFName.text.toString().trim()
             val lName = binding.tfLName.text.toString().trim()
